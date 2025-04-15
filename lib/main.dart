@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdf_generate/pdf_api.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:flutter_pdf_generate/model/payment_model.dart';
+import 'package:flutter_pdf_generate/pdf_format.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,19 +44,24 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () async {
-                final pdf = pw.Document();
-                pdf.addPage(
-                  pw.Page(
-                    build:
-                        (pw.Context context) =>
-                            pw.Center(child: pw.Text('Hello World')),
-                  ),
-                );
-                final file = await PdfApi.saveDocument(
-                  name: 'hello.pdf',
-                  pdf: pdf,
-                );
-                PdfApi.openFile(file);
+                // final pdf = pw.Document();
+
+                // pdf.addPage(
+
+                //   pw.Page(
+                //     build:
+                //         (pw.Context context) =>
+                //             pw.Center(child: pw.Text('Hello World')),
+                //   ),
+                // );
+                // final file = await PdfApi.saveDocument(
+                //   name: 'hello.pdf',
+                //   pdf: pdf,
+                // );
+                // PdfApi.openFile(file);
+
+                final paymentData = PaymentStatement.fromJson(sampleApiData);
+                PaymentPDFGenerator.generateAndSavePDF(paymentData);
               },
               child: const Text('generate PDF'),
             ),
